@@ -30,11 +30,11 @@
 
   <header style="position: sticky; top: 0; z-index: 20; background: #bfa478; color: #fff; box-shadow: 0 1px 12px rgba(43,38,33,.12);">
     <div style="max-width: 1080px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
-      <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+      <div style="flex: 1 1 auto; display: flex; align-items: center; gap: 10px; min-width: 0; overflow: hidden;">
         <a href="#" onClick="{{ toTop }}" style="flex: none; display: flex; align-items: center;">
           <img src="images/logo-header-white.png" alt="佛乘大法" style="display: block; height: 28px; width: auto;" />
         </a>
-        <a href="#" onClick="{{ toTop }}" style="font-family: 'Noto Serif TC', serif; font-size: {{ fsBrand }}; font-weight: 700; letter-spacing: .1em; white-space: nowrap; color: #fff; text-decoration: none; cursor: pointer;">線上九字禪念佛</a>
+        <a href="#" onClick="{{ toTop }}" style="font-family: 'Noto Serif TC', serif; font-size: {{ fsBrand }}; font-weight: 700; letter-spacing: .1em; white-space: nowrap; flex: none; color: #fff; text-decoration: none; cursor: pointer;">線上九字禪念佛</a>
         <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
           <span style="font-size: 14px; opacity: .9; letter-spacing: .08em; white-space: nowrap;">南無本師大自在王佛</span>
         </sc-if>
@@ -369,7 +369,7 @@ class Component extends DCLogic {
       isNarrow: n,
       isWide: !n,
       menuOpen: !!st.menuOpen,
-      fsBrand: n ? '19px' : '20px',
+      fsBrand: n ? 'min(20px, calc((100vw - 152px) / 7.7))' : '20px',
       fsH1: n ? 'min(44px, calc((100vw - 54px) / 9.4))' : '46px',
       lsH1: n ? '.02em' : '.16em',
       fsVerse: n ? '18px' : '19px',
