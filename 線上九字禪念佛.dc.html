@@ -22,7 +22,7 @@
   body { margin: 0; background: #faf7f2; -webkit-font-smoothing: antialiased; }
   a { color: #8a6c42; text-decoration: none; }
   a:hover { color: #6f5533; text-decoration: underline; }
-  @keyframes zenPulse { 0% { transform: scale(1); opacity: .85 } 50% { transform: scale(1.35); opacity: .25 } 100% { transform: scale(1); opacity: .85 } }
+  @keyframes zenPulse { 0% { transform: scale(.94); opacity: .8 } 50% { transform: scale(1); opacity: .2 } 100% { transform: scale(.94); opacity: .8 } }
 </style>
 </helmet>
 
@@ -98,7 +98,7 @@
       <div style="background: #fffdf9; border: 1px solid rgba(191,164,120,.45); border-radius: 6px; box-shadow: 0 2px 20px rgba(43,38,33,.06); padding: {{ playerCardPad }};">
         <div style="display: flex; align-items: center; gap: {{ playRowGap }}; flex-wrap: wrap; justify-content: center;">
           <button type="button" onClick="{{ toggle }}" style="flex: none; position: relative; width: {{ playBox }}; height: {{ playBox }}; border-radius: 50%; border: none; background: #b3945f; color: #fff; cursor: pointer; display: grid; place-items: center; font-size: {{ fsPlay }}; letter-spacing: .04em; font-family: 'Noto Serif TC', serif; font-weight: 700; box-shadow: 0 4px 16px rgba(179,148,95,.35);" style-hover="background: #c0a36f;">
-            <span style="position: absolute; inset: -10px; border-radius: 50%; border: 1px solid rgba(179,148,95,.55); animation: zenPulse 2.6s ease-in-out infinite; animation-play-state: {{ pulseState }};"></span>
+            <span style="position: absolute; inset: -9px; border-radius: 50%; border: 1px solid rgba(179,148,95,.55); animation: zenPulse 2.6s ease-in-out infinite; animation-play-state: {{ pulseState }};"></span>
             <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}">
               <svg width="26" height="30" viewBox="0 0 26 30" fill="#ffffff" aria-label="暫停" role="img">
                 <rect x="3" y="2" width="7" height="26" rx="1.5"></rect>
@@ -112,7 +112,7 @@
             </sc-if>
           </button>
 
-          <div style="flex: 1 1 auto; min-width: 0;">
+          <div style="flex: {{ infoFlex }}; min-width: 0;">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px;">
               <div style="font-family: 'Noto Serif TC', serif; font-size: {{ fsQuote }}; font-weight: 600; letter-spacing: .1em; color: #2b2621;">{{ trackLabel }}</div>
               <div style="font-size: {{ fsSmall }}; color: #7a7064; font-variant-numeric: tabular-nums; letter-spacing: .04em;">{{ timeText }}</div>
@@ -129,10 +129,12 @@
                   <span style="position: absolute; top: 3px; left: {{ swKnobLeft }}; width: {{ swKnob }}; height: {{ swKnob }}; border-radius: 50%; background: #fffdf9; border: 1px solid rgba(191,164,120,.8); box-shadow: 0 2px 6px rgba(43,38,33,.18); transition: left .2s;"></span>
                 </button>
               </div>
-              <label style="flex: {{ volFlex }}; display: flex; align-items: center; gap: 14px; font-size: {{ fsSmall }}; color: #5f574c; letter-spacing: .06em;">
-                <span style="flex: none;">音量</span>
-                <input type="range" min="0" max="1" step="0.01" value="{{ vol }}" onChange="{{ setVol }}" style="flex: 1 1 auto; width: {{ volW }}; height: {{ volH }}; accent-color: #b3945f;" />
-              </label>
+              <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+                <div style="flex: {{ volFlex }}; display: flex; align-items: center; gap: 14px; font-size: {{ fsSmall }}; color: #5f574c; letter-spacing: .06em;">
+                  <span style="flex: none;">音量</span>
+                  <input type="range" min="0" max="1" step="0.01" value="{{ vol }}" onChange="{{ setVol }}" onInput="{{ setVol }}" style="flex: 1 1 auto; width: {{ volW }}; height: {{ volH }}; accent-color: #b3945f;" />
+                </div>
+              </sc-if>
             </div>
           </div>
         </div>
@@ -402,12 +404,13 @@ class Component extends DCLogic {
       fsQuote: n ? '18px' : '17px',
       fsTab: n ? '21px' : '19px',
       tabPad: n ? '22px 12px' : '18px 12px',
-      playBox: n ? '112px' : '78px',
+      playBox: n ? '96px' : '78px',
       fsPlay: n ? '25px' : '22px',
       barH: n ? '16px' : '10px',
       knobSize: n ? '28px' : '18px',
       knobShift: n ? '-14px' : '-9px',
       playRowGap: n ? '20px' : '26px',
+      infoFlex: n ? '1 1 100%' : '1 1 auto',
       ctrlGapTop: n ? '26px' : '20px',
       loopFlex: n ? '1 1 100%' : '0 0 auto',
       volFlex: n ? '1 1 100%' : '0 1 auto',
